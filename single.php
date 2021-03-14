@@ -5,8 +5,6 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
 
   <!-- Bootstrap core CSS -->
   <link href="<?php echo get_template_directory_uri(); ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +24,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="<?php echo home_url(); ?>"><?php bloginfo('name'); ?></a>
+      <a class="navbar-brand" href="index.html">Start Bootstrap</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -50,52 +48,46 @@
     </div>
   </nav>
 
+  <?php while(have_posts()): the_post() ?>
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('<?php echo get_template_directory_uri(); ?>/img/home-bg.jpg')">
+
+  <?php
+    $id = get_post_thumbnail_id();
+    $img = wp_get_attachment_image_src($id);
+    do_action('qm/debug',$img);
+  ?>
+
+  <header class="masthead" style="background-image: url('<?php echo $img[0]; ?>')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Clean Blog</h1>
-            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+          <div class="post-heading">
+            <h1><?php the_title(); ?></h1>
+            <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+            <span class="meta">
+              Posted by <?php the_author(); ?>
+              on <?php the_time("Y年n月j日 l") ?>
+            </span>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <?php while(have_posts()): the_post(); ?>
-          <div class="post-preview">
-            <a href="<?php the_permalink(); ?>">
-              <h2 class="post-title">
-                <?php the_title(); ?>
-              </h2>
-              <h3 class="post-subtitle">
-                <?php the_excerpt(); ?>
-              </h3>
-            </a>
-            <p class="post-meta">Posted by
-              <?php the_author(); ?>
-              on <?php the_time("Y年n月j日 l") ?></p>
-          </div>
-          <hr>
-        <?php endwhile; ?>
-        <!-- Pager -->
-        <div class="clearfix">
-          <?php echo paginate_links(); ?>
-            <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <?php the_content(); ?>
         </div>
       </div>
     </div>
-  </div>
+  </article>
 
   <hr>
-
+  <?php endwhile; ?>
   <!-- Footer -->
   <footer>
     <div class="container">
@@ -139,7 +131,7 @@
 
   <!-- Custom scripts for this template -->
   <script src="<?php echo get_template_directory_uri(); ?>/js/clean-blog.min.js"></script>
-  <?php wp_footer() ?>
+  <?php wp_footer(); ?>
 </body>
 
 </html>
