@@ -81,6 +81,18 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <?php the_content(); ?>
+          <?php 
+            $price = get_post_meta(get_the_ID(),'価格', true);
+            $published = get_post_meta( get_the_ID(), '発売日', true )
+          ?>
+          <!-- プラグイン(ACF)によりthe_field()、get_field()が使える -->
+          <!-- get_fieldは加工できる -->
+          <dl>
+            <dt>価格</dt>
+            <dd><?php echo number_format(get_field('価格')) ?>円</dd>
+            <dt>発売日</dt>
+            <dd><?php the_field('発売日') ?></dd>
+          </dl>
         </div>
       </div>
     </div>

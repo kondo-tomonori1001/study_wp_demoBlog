@@ -8,6 +8,7 @@ function init_func() {
       'name' => '商品',
     ],
     'public' => true,
+    // ページ一覧の作成
     'has_archive' => true,
     // ディレクトリの階層をつくれる
     'hierarchical' => false,
